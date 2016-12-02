@@ -11,21 +11,25 @@ class CSVHandler
 	public function __construct($filename)
 	{
 		$this->filename = $filename;
-		$this->csvFile = fopen($filename, 'ra');
 	}
 
 	public function writeContent($content)
 	{
-		fputcsv($this->csvFile, $content);
+		$fp = fopen($this->filename, 'a');
+		fputcsv($fp, $content);
+		fclose($fp);
 	}
 
 	public function getContent()
 	{
+		$fp = fopen($this->filename, 'r');
 		$content = [];
-		while ($data = fgetcsv($this->csvFile))
+		// fgetcsv($fp); // Skip 1st line
+		while ($data = fgetcsv($fp))
 		{
 			$content[] = $data;
 		}
+		fclose($fp);
 		return $content;
 	}
 }

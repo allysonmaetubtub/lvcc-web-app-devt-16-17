@@ -8,6 +8,8 @@
 
 include "CSVHandler.php";
 $csvHandler = new CSVHandler("list.csv");
+$message = null;
+
 if (!empty($_POST))
 {
     $full_name = $_POST['full_name'];
@@ -16,7 +18,7 @@ if (!empty($_POST))
     $content = [$full_name, $age];
     // write to CSV file
     $csvHandler->writeContent($content);
-    echo "<h5>Added {$full_name} {$age} years old</h5>";
+    $message = "Added {$full_name} {$age} years old";
 }
 $content = $csvHandler->getContent();
 ?>
@@ -49,6 +51,14 @@ $content = $csvHandler->getContent();
         </div><!--/.container-fluid -->
     </nav>
 
+    <?php if (!empty($message)): ?>
+    <div class="alert alert-info alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>Success!</strong> <?php echo $message; ?>
+    </div>
+    <?php endif; ?>
 
     <div class="row">
         <form class="col-md-5" method="POST" action="csv-list.php">
@@ -76,7 +86,7 @@ $content = $csvHandler->getContent();
             <i class="glyphicon glyphicon-home"></i>
             Barangay Members
         </h1>
-        <table class="table table-striped table-bordered table-hover table-condensed">
+        <table class="table table-striped table-bordered table-hover">
             <tr>
                 <th>#</th>
                 <th>Full Name</th>
