@@ -61,7 +61,7 @@ $content = $csvHandler->getContent();
     <?php endif; ?>
 
     <div class="row">
-        <form class="col-md-5" method="POST" action="csv-list.php">
+        <form class="col-md-3" method="POST" action="csv-list.php">
           <div class="form-group">
             <label>Full Name</label>
             <input type="text" class="form-control" name="full_name">
@@ -76,14 +76,16 @@ $content = $csvHandler->getContent();
             <?php endfor; ?>
             </select>
           </div>
-          <button type="submit" class="btn btn-default">Submit</button>
+            <button type="submit" class="btn btn-default">
+                Submit
+            </button>
         </form>
     </div>
 
     <!-- Main component for a primary marketing message or call to action -->
     <div class="row">
         <h1>
-            <i class="glyphicon glyphicon-home"></i>
+            <i class="glyphicon glyphicon-heart"></i>
             Barangay Members
         </h1>
         <table class="table table-striped table-bordered table-hover">

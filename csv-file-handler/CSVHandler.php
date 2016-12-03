@@ -8,6 +8,7 @@
 
 class CSVHandler
 {
+	private $filename;
 	public function __construct($filename)
 	{
 		$this->filename = $filename;
@@ -24,10 +25,10 @@ class CSVHandler
 	{
 		$fp = fopen($this->filename, 'r');
 		$content = [];
-		// fgetcsv($fp); // Skip 1st line
+		fgetcsv($fp); // Skip 1st line
 		while ($data = fgetcsv($fp))
 		{
-			$content[] = $data;
+			array_push($content, $data);
 		}
 		fclose($fp);
 		return $content;
