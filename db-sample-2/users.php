@@ -27,6 +27,7 @@ $users = $userDao->getAllUsers();
         <h1>
             <i class="glyphicon glyphicon-heart"></i>
             Users
+            <a class="btn btn-primary">Add User</a>
         </h1>
 <table class="table table-striped table-bordered table-hover">
 <tr>
@@ -34,6 +35,7 @@ $users = $userDao->getAllUsers();
     <th>Full Name</th>
     <th>Email</th>
     <th>Date Created</th>
+    <th>&nbsp;</th>
 </tr>
 <?php foreach ($users as $user): ?>
 <tr>
@@ -47,6 +49,11 @@ echo $full_name;
     </td>
     <td><?php echo $user['email'] ?></td>
     <td><?php echo $user['created_at'] ?></td>
+    <td>
+        <a class="btn btn-xs btn-primary"
+            href="edit-user.php?id=<?php echo $user['id']; ?>">Edit</a>
+        <a class="btn btn-xs btn-danger">Delete</a>
+    </td>
 </tr>
 <?php endforeach; ?>
 </table>

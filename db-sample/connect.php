@@ -9,9 +9,8 @@ try {
     $pdo_conn = new PDO($dsn, $username, $password);
     $sql = "SELECT * FROM users WHERE first_name = :name";
     $sth = $pdo_conn->prepare($sql);
-    $param = array(':name' => 'Jane');
+    $param = array(':name' => 'John');
     $sth->execute($param);
-    // $users = $pdo_conn->query("SELECT * FROM users");
     $users = $sth->fetchAll(PDO::FETCH_ASSOC);
     foreach ($users as $user) {
         print_r($user);
