@@ -33,6 +33,7 @@ class UserDAO {
 					id,
 					first_name,
 					last_name,
+					type,
 					email
 				FROM users
 				WHERE
@@ -57,6 +58,7 @@ class UserDAO {
 					first_name = :first_name,
 					last_name = :last_name,
 					email = :email,
+					type = :type,
 					passwd = :passwd,
 					created_at = CURRENT_TIMESTAMP";
 		$sth = $this->db->prepare($sql);
@@ -64,9 +66,13 @@ class UserDAO {
 			':first_name' => $user['first_name'],
 			':last_name' => $user['last_name'],
 			':email' => $user['email'],
+			':type' => $user['type'],
 			':passwd' => $user['passwd']
 		);
-		$sth->execute($params);
+		if ($sth->execute($params)) {
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -81,6 +87,7 @@ class UserDAO {
 					first_name = :first_name,
 					last_name = :last_name,
 					email = :email,
+					type = :type,
 					passwd = :passwd
 				WHERE
 					id = :user_id";
@@ -90,9 +97,30 @@ class UserDAO {
 			':first_name' => $data['first_name'],
 			':last_name' => $data['last_name'],
 			':email' => $data['email'],
+			':type' => $data['type'],
 			':passwd' => $data['passwd'],
 			':user_id' => $user_id,
 		);
-		$sth->execute($params);
+		if ($sth->execute($params)) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Deletes the user
+	 * @param integer $user_id
+	 */
+	public function deleteUser($user_id) {
+		$sql = "DELETE FROM users WHERE id = :user_id";
+		$sth = $this->db->prepare($sql);
+		// Bind data
+		$params = array(
+			':user_id' => $user_id
+		);
+		if ($sth->execute($params)) {
+			return true;
+		}
+		return false;
 	}
 }

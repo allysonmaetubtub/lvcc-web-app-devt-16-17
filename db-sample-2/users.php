@@ -27,13 +27,14 @@ $users = $userDao->getAllUsers();
         <h1>
             <i class="glyphicon glyphicon-heart"></i>
             Users
-            <a class="btn btn-primary">Add User</a>
+            <a class="btn btn-primary" href="add-user-form.php">Add User</a>
         </h1>
 <table class="table table-striped table-bordered table-hover">
 <tr>
     <th>ID</th>
     <th>Full Name</th>
     <th>Email</th>
+    <th>Type</th>
     <th>Date Created</th>
     <th>&nbsp;</th>
 </tr>
@@ -48,11 +49,21 @@ echo $full_name;
 ?>
     </td>
     <td><?php echo $user['email'] ?></td>
+    <td><?php echo $user['type'] ?></td>
     <td><?php echo $user['created_at'] ?></td>
     <td>
+
         <a class="btn btn-xs btn-primary"
-            href="edit-user.php?id=<?php echo $user['id']; ?>">Edit</a>
-        <a class="btn btn-xs btn-danger">Delete</a>
+            href="edit-user.php?id=<?php echo $user['id']; ?>">
+            Edit
+        </a>
+
+        <a class="btn btn-xs btn-danger delete-user"
+            data-id="<?php echo $user['id']; ?>"
+            href="#">
+            Delete
+        </a>
+
     </td>
 </tr>
 <?php endforeach; ?>
@@ -63,5 +74,18 @@ echo $full_name;
 
 <script type="text/javascript" src="/libraries/jquery/jquery-3.1.1.min.js"></script>
 <script type="text/javascript" src="/libraries/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.delete-user').on('click', function() {
+        var answer = confirm("Are you sure you want to delete this record?");
+        if (answer == true) {
+            var user_id = $(this).data('id');
+            location.href = "delete-user.php?id=" + user_id;
+        } else {
+            return false;
+        }
+    });
+});
+</script>
 </body>
 </html>
